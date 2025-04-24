@@ -9,18 +9,20 @@ public class MenuRouter {
     private final MainMenuController mainCtrl;
     private final ProfileMenuController profileCtrl;
     private final GameMenuController gameCtrl;
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
     public MenuRouter(RegistrationMenuController regCtrl,
                       LoginMenuController loginCtrl,
                       MainMenuController mainCtrl,
                       ProfileMenuController profileCtrl,
-                      GameMenuController gameCtrl) {
+                      GameMenuController gameCtrl,
+                      Scanner scanner) {
         this.regCtrl = regCtrl;
         this.loginCtrl = loginCtrl;
         this.mainCtrl = mainCtrl;
         this.profileCtrl = profileCtrl;
         this.gameCtrl = gameCtrl;
+        this.scanner = scanner;
     }
 
     public void loop() {
@@ -96,6 +98,14 @@ public class MenuRouter {
     }
 
     private void dispatchToCurrent(String line) {
+        // global commands:
+        if (line.startsWith("time") || line.startsWith("weather")) {
+            // forward into gameCtrl which knows how to handle them
+            gameCtrl.handle(line);
+            return;
+
+        }
+
         switch (currentMenu) {
             case "register": regCtrl.handle(line); break;
             case "login":    loginCtrl.handle(line); break;

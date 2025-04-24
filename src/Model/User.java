@@ -1,8 +1,11 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable {
+    private Farm farm = new Farm(); // each user has a farm
+
     private static final long serialVersionUID = 1L;
     private String username;
     private String nickname;
@@ -34,23 +37,71 @@ public class User implements Serializable {
         this.gamesPlayed = 0;
     }
 
+    public User() {
+        this.gender = null;
+    }
+
     // Getters & setters
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
+
     public String getNickname() { return nickname; }
     public void setNickname(String nickname) { this.nickname = nickname; }
+
     public String getPasswordHash() { return passwordHash; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
+
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
     public String getGender() { return gender; }
+
     public String getSecurityQuestion() { return securityQuestion; }
+    public void setSecurityQuestion(String securityQuestion) { this.securityQuestion = securityQuestion; }
+
     public String getSecurityAnswerHash() { return securityAnswerHash; }
+    public void setSecurityAnswerHash(String securityAnswerHash) { this.securityAnswerHash = securityAnswerHash; }
+
     public int getHighestGold() { return highestGold; }
     public int getGamesPlayed() { return gamesPlayed; }
 
-    public void recordGame(int gold) {
+    public Farm getFarm() {
+        return farm;
+    }
+
+    public void recordGame(int goldEarned) {
         gamesPlayed++;
-        if (gold > highestGold) highestGold = gold;
+        if (goldEarned > highestGold) {
+            highestGold = goldEarned;
+        }
+    }
+
+    public void resetDaily() {
+        // placeholder for daily resets (e.g. energy, daily quests)
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(username, user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", highestGold=" + highestGold +
+                ", gamesPlayed=" + gamesPlayed +
+                '}';
     }
 }
