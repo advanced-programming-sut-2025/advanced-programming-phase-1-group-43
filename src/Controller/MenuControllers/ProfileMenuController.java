@@ -8,7 +8,10 @@ public class ProfileMenuController {
 
     public void handle(String input) {
         if (input.startsWith("change ")) {
-            try { auth.updateProfile(input); System.out.println("Updated."); }
+            try {
+                auth.updateProfile(input);
+                System.out.println("Updated.");
+            }
             catch (Exception ex) { System.out.println("Error: " + ex.getMessage()); }
         } else if ("user info".equals(input)) {
             System.out.println(auth.getCurrentUserInfo());

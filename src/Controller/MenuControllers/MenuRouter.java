@@ -1,34 +1,63 @@
 package Controller.MenuControllers;
 
+import repository.UserRepository;
+
 import java.util.Scanner;
 
 public class MenuRouter {
-    private String currentMenu = "register";
+    private String currentMenu = null;
     private final RegistrationMenuController regCtrl;
     private final LoginMenuController loginCtrl;
     private final MainMenuController mainCtrl;
     private final ProfileMenuController profileCtrl;
     private final GameMenuController gameCtrl;
     private final Scanner scanner;
+    private final UserRepository userRepo;
 
     public MenuRouter(RegistrationMenuController regCtrl,
                       LoginMenuController loginCtrl,
                       MainMenuController mainCtrl,
                       ProfileMenuController profileCtrl,
                       GameMenuController gameCtrl,
-                      Scanner scanner) {
+                      Scanner scanner,
+                      UserRepository userRepo) {
         this.regCtrl = regCtrl;
         this.loginCtrl = loginCtrl;
         this.mainCtrl = mainCtrl;
         this.profileCtrl = profileCtrl;
         this.gameCtrl = gameCtrl;
         this.scanner = scanner;
+        this.userRepo = userRepo;
     }
 
     public void loop() {
+        if (userRepo.getCurrent() != null) {
+            currentMenu = "main";
+            System.out.println("Welcome back, " + userRepo.getCurrent().getUsername() + "! You are still logged in.");
+        } else {
+            while (true) {
+                System.out.println("Choose your menu: [enter login or register]");
+                currentMenu = scanner.nextLine();
+                if (currentMenu.equals("login") || currentMenu.equals("register")) {
+                    break;
+                }
+                else {
+                    System.out.println("please choose one of the following options: login or register");
+                }
+            }
+        }
+
         while (true) {
-            System.out.print(currentMenu + "> ");
+            System.out.println(currentMenu + ">");
             String line = scanner.nextLine().trim();
+            if (currentMenu.equals("login") && line.startsWith("login ")) {
+                // special: after login, switch to main
+                loginCtrl.handle(line);
+                if (userRepo.getCurrent() != null) {
+                    currentMenu = "main";
+                }
+                continue;
+            }
             if (line.equals("show current menu")) {
                 System.out.println("Current menu: " + currentMenu);
             } else if (line.startsWith("menu ")) {
@@ -74,7 +103,16 @@ public class MenuRouter {
     private void leaveMenu() {
         String lastMenu = currentMenu;
         switch (currentMenu) {
-            case "main": currentMenu = "login"; break;
+            case "main": currentMenu = "login";
+                currentMenu = "login";
+                userRepo.setCurrent(null);
+                // پاک کردن session file
+                try {
+                    util.SessionManager.clear();
+                } catch (Exception e) {
+                    System.err.println("Warning: failed to clear session: " + e.getMessage());
+                }
+                break;
             case "profile": currentMenu = "main"; break;
             case "game": currentMenu = "main"; break;
             default: System.out.println("Cannot exit from '"+currentMenu+"'.");
@@ -98,12 +136,27 @@ public class MenuRouter {
     }
 
     private void dispatchToCurrent(String line) {
+        if (currentMenu.equals("register") && line.startsWith("pick question")) {
+            // اجرا کن
+            regCtrl.handle(line);
+            // اگر کاربر جاری سؤال امنیتی انتخاب کرده، می‌رویم main
+            if (userRepo.getCurrent()!=null
+                    && userRepo.getCurrent().getSecurityQuestion()!=null) {
+                currentMenu = "main";
+                System.out.println("Automatically entered main menu.");
+            }
+            return;
+        }
+        if (currentMenu.equals("login") && (line.startsWith("forget password") || line.startsWith("answer -a"))) {
+            loginCtrl.handle(line);
+            return;
+        }
+
         // global commands:
         if (line.startsWith("time") || line.startsWith("weather")) {
             // forward into gameCtrl which knows how to handle them
             gameCtrl.handle(line);
             return;
-
         }
 
         switch (currentMenu) {

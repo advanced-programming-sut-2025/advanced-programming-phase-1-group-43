@@ -65,4 +65,29 @@ public class GameRepository {
             gson.toJson(currentState, writer);
         }
     }
+
+    public void save(GameState state) throws IOException {
+        this.currentState = state;
+        saveCurrent();   // متد existing که وضعیت currentState را به فایل می‌نویسد
+    }
+
+    // متد کمکی برای تعیین state جاری بدون ذخیره
+    public void setCurrent(GameState state) {
+        this.currentState = state;
+    }
+
+    /** Remove in-memory reference so that getCurrent() fails until next load/create */
+    public void clearCurrent() {
+        this.currentState = null;
+    }
+
+    /** Delete the saved JSON on disk for the current owner */
+    public void deleteSave() throws IOException {
+        if (currentState != null) {
+            String owner = currentState.getPlayers().get(0);
+            Path file = storageDir.resolve(owner + ".json");
+            Files.deleteIfExists(file);
+        }
+    }
 }
+

@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class UserRepository {
     private final Path storageFile = Paths.get("users.json");
@@ -67,5 +68,9 @@ public class UserRepository {
 
     public User getCurrent() {
         return currentUser;
+    }
+
+    public Optional<User> findOptionalByUsername(String username) {
+        return Optional.ofNullable(users.get(username));
     }
 }

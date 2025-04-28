@@ -16,13 +16,26 @@ public class LoginMenuController {
                 auth.login(input);
                 System.out.println("Login successful.");
             } catch (Exception ex) {
-                System.out.println("Error: " + ex.getMessage());
-                System.out.print("Forgot password? (y/n): ");
-                if ("y".equalsIgnoreCase(sc.nextLine())) {
-                    auth.initiatePasswordRecovery(input);
+                String msg = ex.getMessage();
+                System.out.println("Error: " + msg);
+                // فقط در صورت "Incorrect password" اجازه فراموشی بده
+                if ("Incorrect password".equals(msg)) {
+                    System.out.print("Forgot password? (y/n): ");
+                    if ("y".equalsIgnoreCase(sc.nextLine())) {
+                        System.out.print("Enter: forget password -u <username>>\n");
+                        String cmd = sc.nextLine();
+                        auth.initiatePasswordRecovery(cmd);
+                    }
                 }
             }
-        } else {
+        }
+        else if (input.startsWith("forget password ")) {
+            auth.initiatePasswordRecovery(input);
+        }
+        else if (input.startsWith("answer -a ")) {
+            auth.answerRecovery(input);
+        }
+        else {
             System.out.println("Invalid command in login menu");
         }
     }
