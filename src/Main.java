@@ -31,8 +31,8 @@ public class Main {
 
             // 2. create services
             AuthService authService = new AuthService(userRepo);
-            GameService gameService = new GameService(gameRepo, userRepo);
             TimeService timeService = new TimeService();
+            GameService gameService = new GameService(gameRepo, userRepo, timeService);
             WeatherService weatherService = new WeatherService();
 
             // 3. create controllers

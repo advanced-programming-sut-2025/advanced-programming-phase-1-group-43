@@ -164,7 +164,14 @@ public class MenuRouter {
             case "login":    loginCtrl.handle(line); break;
             case "main":     mainCtrl.handle(line); break;
             case "profile":  profileCtrl.handle(line); break;
-            case "game":     gameCtrl.handle(line); break;
+            case "game":
+                gameCtrl.handle(line);
+                // if the user just exited the game, go back to main
+                if (line.equals("exit game")) {
+                    currentMenu = "main";
+                    System.out.println("Automatically entered main menu.");
+                }
+                break;
             default:          System.out.println("Unknown menu state");
         }
     }

@@ -25,8 +25,19 @@ public class TimeService {
     }
 
     public void advanceHours(int h) {
-        time = time.plusHours(h);
-        if (time.isAfter(LocalTime.of(21,59))) {
+        if (h < 0) throw new IllegalArgumentException("Cannot advance negative hours");
+
+        int fullDays = h / 24;
+        int leftoverHours = h % 24;
+
+        // add full days
+        for (int i = 0; i < fullDays; i++) {
+            nextDay();
+        }
+
+        // then add leftover hours
+        time = time.plusHours(leftoverHours);
+        if (time.isAfter(LocalTime.of(21, 59))) {
             nextDay();
         }
     }

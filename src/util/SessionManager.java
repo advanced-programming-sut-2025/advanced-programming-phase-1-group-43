@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class SessionManager {
     private static final Path SESSION_FILE = Paths.get("session.json");
-    private static final Gson gson = new Gson();
+    public static final Gson gson = new Gson();
 
     /** ذخیرهٔ نام‌کاربری که باید در اجراهای بعدی هم لاگین بماند */
     public static void save(String username) {

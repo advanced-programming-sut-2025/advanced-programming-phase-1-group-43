@@ -18,20 +18,58 @@ public class GameMenuController {
 
     public void handle(String input) {
         try {
-            if (input.equals("help")) printHelp();
-            else if (input.startsWith("game new ")) game.createNew(input);
-            else if (input.startsWith("game map ")) game.selectMap(input);
-            else if ("load game".equals(input)) game.load();
-            else if (input.equals("exit game")) game.exitGame();
-            else if (input.startsWith("next turn")) game.nextTurn();
+            // Map-selection phase
+            if (game.isAwaitingMapSelection()) {
+                if (input.startsWith("game map ")) {
+                    game.selectMap(input);
+                    if (game.isAllMapsChosen()) {
+                        System.out.println("All maps chosen — game starts now!");
+                    } else {
+                        System.out.println("Next player, select your map:");
+                    }
+                } else if (input.equals("help")) {
+                    printHelp();
+                } else {
+                    System.out.println("In map-selection phase only 'game map <n>' is allowed. Type 'help' for commands.");
+                }
+                return;
+            }
+
+            // Main game commands
+            if (input.equals("help")) {
+                printHelp();
+            }
+            else if (input.startsWith("game new ")) {
+                game.createNew(input);
+            }
+            else if (input.equals("load game")) {
+                game.load();
+            }
+            else if (input.equals("exit game")) {
+                game.exitGame();
+            }
+            else if (input.equals("terminate game")) {
+                game.terminateGame();
+            }
+            else if (input.equals("terminate vote yes")) {
+                game.voteTerminate(true);
+            }
+            else if (input.equals("terminate vote no")) {
+                game.voteTerminate(false);
+            }
+            else if (input.equals("next turn")) {
+                game.nextTurn();
+            }
             else if (input.startsWith("time") || input.startsWith("date") ||
-                     input.startsWith("datetime") || input.startsWith("day of the week") ||
-                     input.startsWith("cheat advance time") || input.startsWith("cheat advance date")) {
+                    input.startsWith("datetime") || input.startsWith("day of the week") ||
+                    input.startsWith("cheat advance time") || input.startsWith("cheat advance date")) {
                 timeCtrl.handle(input);
-            } else if (input.startsWith("weather")) {
+            }
+            else if (input.startsWith("weather")) {
                 weatherCtrl.handle(input);
-            } else {
-                System.out.println("Invalid command in game menu_write \"help\" to see valid commands.");
+            }
+            else {
+                System.out.println("Invalid command in game menu—type 'help' to see valid commands.");
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -39,17 +77,19 @@ public class GameMenuController {
     }
 
     private void printHelp() {
-        System.out.println("Game Menu commands:");
-        System.out.println("  game new -u <u1> [u2] [u3]      Create a new game with 1–3 players");
-        System.out.println("  game map <map_number>           Select a map before starting play");
-        System.out.println("  load game                       Load your last saved game");
-        System.out.println("  exit game                       Exit & save current session");
-        System.out.println("  terminate game                  Vote to force-terminate the game");
-        System.out.println("  next turn                       Advance to next player's turn");
-        System.out.println("  time / date / datetime / day…   Show game time/date");
-        System.out.println("  cheat advance time <X>h         Cheat: advance time");
-        System.out.println("  cheat advance date <X>d         Cheat: advance date");
-        System.out.println("  weather / weather forecast      Show weather");
-        System.out.println("  cheat weather set <TYPE>        Cheat: set weather");
+        System.out.println("Game-Menu Commands:");
+        System.out.println("  game new -u <u1> [u2] [u3]      ⇨ create new game (then select maps)");
+        System.out.println("  game map <n>                    ⇨ choose map #n (turn-based, each player)");
+        System.out.println("  load game                       ⇨ load saved game");
+        System.out.println("  exit game                       ⇨ save & exit to main menu (creator only, on your turn)");
+        System.out.println("  terminate game                  ⇨ creator starts force-terminate vote");
+        System.out.println("  terminate vote yes|no           ⇨ cast your vote in termination");
+        System.out.println("  next turn                       ⇨ end your turn, go to next player");
+        System.out.println("  time / date / datetime / day…   ⇨ show game time/date");
+        System.out.println("  cheat advance time <X>h         ⇨ cheat: advance time");
+        System.out.println("  cheat advance date <X>d         ⇨ cheat: advance date");
+        System.out.println("  weather / weather forecast      ⇨ show weather");
+        System.out.println("  cheat weather set <TYPE>        ⇨ cheat: set weather");
     }
+
 }

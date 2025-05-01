@@ -3,23 +3,37 @@ package Controller;
 import service.TimeService;
 
 public class TimeController {
-    private final TimeService time;
+    private final TimeService times;
 
-    public TimeController(TimeService time) { this.time = time; }
+    public TimeController(TimeService times) {
+        this.times = times;
+    }
 
-    public void handle(String cmd) {
-        if (cmd.equals("time")) System.out.println(time.getTime());
-        else if (cmd.equals("date")) System.out.println(time.getDate());
-        else if (cmd.equals("datetime")) System.out.println(time.getDateTime());
-        else if (cmd.equals("day of the week")) System.out.println(time.getDayOfWeek());
-        else if (cmd.startsWith("cheat advance time ")) {
-            int h = Integer.parseInt(cmd.split(" ")[3].replace("h",""));
-            time.cheatAdvanceTime(h);
+    public void handle(String input) {
+        try {
+            if (input.equals("time")) {
+                System.out.println("Time: " + times.getTime());
+            } else if (input.equals("date")) {
+                System.out.println("Date: " + times.getDate());
+            } else if (input.equals("datetime")) {
+                System.out.println("DateTime: " + times.getDateTime());
+            } else if (input.equals("day of the week")) {
+                System.out.println("Day of week: " + times.getDayOfWeek());
+            } else if (input.startsWith("cheat advance time")) {
+                int h = Integer.parseInt(input.split("\\s+")[3].replace("h",""));
+                if (h<0) throw new IllegalArgumentException("Must be non-negative");
+                times.cheatAdvanceTime(h);
+                System.out.println("Time advanced by " + h + "h → " + times.getTime());
+            } else if (input.startsWith("cheat advance date")) {
+                int d = Integer.parseInt(input.split("\\s+")[3].replace("d",""));
+                if (d<0) throw new IllegalArgumentException("Must be non-negative");
+                times.cheatAdvanceDate(d);
+                System.out.println("Date advanced by " + d + "d → " + times.getDate());
+            } else {
+                System.out.println("Unknown time command");
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
         }
-        else if (cmd.startsWith("cheat advance date ")) {
-            int d = Integer.parseInt(cmd.split(" ")[3].replace("d",""));
-            time.cheatAdvanceDate(d);
-        }
-        else System.out.println("Invalid time command");
     }
 }
