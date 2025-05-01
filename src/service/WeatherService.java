@@ -1,14 +1,26 @@
 package service;
 
-import Model.User;
+import Model.enums.Season;
 import Model.enums.WeatherType;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Random;
 
 public class WeatherService {
     private WeatherType current;
     private WeatherType forecast;
     private final Random rnd = new Random();
+    private boolean forecastWasCheated = false;
+
+    private static final Map<Season, double[]> PROBS = new EnumMap<>(Season.class);
+    static {
+        // order: SUNNY, RAIN, STORM, SNOW
+        PROBS.put(Season.SPRING, new double[]{0.5, 0.3, 0.15, 0.05});
+        PROBS.put(Season.SUMMER, new double[]{0.6, 0.25,0.1,  0.05});
+        PROBS.put(Season.FALL,   new double[]{0.5, 0.3, 0.15, 0.05});
+        PROBS.put(Season.WINTER, new double[]{0.7, 0.1, 0.05, 0.15});
+    }
 
     public WeatherService() {
         current = WeatherType.SUNNY;
@@ -24,10 +36,24 @@ public class WeatherService {
     }
 
     // called at day start
-    public void rollForecast(String season) {
-        // choose forecast based on season probabilities
-        WeatherType[] vals = WeatherType.values();
-        forecast = vals[rnd.nextInt(vals.length)];
+    public void rollForecast(String seasonName) {
+        if (forecastWasCheated) {
+            forecastWasCheated = false;  // ✅ use the cheated value once
+            return;
+        }
+
+        Season s = Season.valueOf(seasonName);
+        double[] ps = PROBS.get(s);
+        double r = rnd.nextDouble();
+        double cum = 0;
+        for(int i=0;i<ps.length;i++){
+            cum += ps[i];
+            if(r <= cum){
+                forecast = WeatherType.values()[i];
+                return;
+            }
+        }
+        forecast = WeatherType.SUNNY;
     }
 
     public void advanceToNextDay() {
@@ -36,19 +62,20 @@ public class WeatherService {
 
     public void cheatSetWeatherType(WeatherType w) {
         forecast = w;
+        forecastWasCheated = true;
     }
 
-    public void applyEffects(User user) {
-        switch (current) {
+    public void applyEffects() {
+        switch(current){
             case SUNNY: break;
             case RAIN:
-                user.getFarm().autoIrrigate();
+                // auto-irrigate, half-tool energy cost, …
                 break;
             case STORM:
-                user.getFarm().autoIrrigate();
-                user.getFarm().strikeLightning();
+                // lightning strikes
                 break;
             case SNOW:
+                // double energy cost, …
                 break;
         }
     }

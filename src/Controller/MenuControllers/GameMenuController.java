@@ -60,12 +60,13 @@ public class GameMenuController {
             else if (input.equals("next turn")) {
                 game.nextTurn();
             }
-            else if (input.startsWith("time") || input.startsWith("date") ||
+            else if (input.equals("season") ||
+                    input.startsWith("time") || input.startsWith("date") ||
                     input.startsWith("datetime") || input.startsWith("day of the week") ||
                     input.startsWith("cheat advance time") || input.startsWith("cheat advance date")) {
                 timeCtrl.handle(input);
             }
-            else if (input.startsWith("weather")) {
+            else if (input.startsWith("weather") || input.startsWith("cheat weather")) {
                 weatherCtrl.handle(input);
             }
             else {
@@ -89,6 +90,7 @@ public class GameMenuController {
         System.out.println("  cheat advance time <X>h         ⇨ cheat: advance time");
         System.out.println("  cheat advance date <X>d         ⇨ cheat: advance date");
         System.out.println("  weather / weather forecast      ⇨ show weather");
+        System.out.println("  season                          ⇨ show current season");
         System.out.println("  cheat weather set <TYPE>        ⇨ cheat: set weather");
     }
 

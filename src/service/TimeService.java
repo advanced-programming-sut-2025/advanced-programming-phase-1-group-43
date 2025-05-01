@@ -1,5 +1,7 @@
 package service;
 
+import Model.enums.Season;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -7,10 +9,34 @@ import java.time.LocalTime;
 public class TimeService {
     private LocalTime time;
     private LocalDate date;
+    private final WeatherService weather;
 
-    public TimeService() {
+    public TimeService(WeatherService weather) {
+        this.weather = weather;
+        this.time = LocalTime.of(9,0);
+        this.date = LocalDate.of(1,1,1);    // day 1
+        // initial forecast for day 1:
+        weather.rollForecast(getSeason());
+        weather.advanceToNextDay();
+        weather.applyEffects();
+    }
+
+    public String getSeason() {
+        return Season.fromDayOfYear(date.getDayOfYear()).name();
+    }
+
+    private void nextDay() {
+        date = date.plusDays(1);
         time = LocalTime.of(9,0);
-        date = LocalDate.of(1,1,1); // day1 spring
+
+        // determine new season
+        Season s = Season.fromDayOfYear(date.getDayOfYear());
+        // make that forecast the “current” weather
+        weather.advanceToNextDay();
+        // roll tomorrow’s forecast based on season
+        weather.rollForecast(s.name());
+        // apply its effects (rain auto-irrigation, storm lightning, etc.)
+        weather.applyEffects();
     }
 
     public LocalTime getTime() { return time; }
@@ -44,11 +70,6 @@ public class TimeService {
 
     public void advanceDays(int d) {
         for (int i=0;i<d;i++) nextDay();
-    }
-
-    private void nextDay() {
-        date = date.plusDays(1);
-        time = LocalTime.of(9,0);
     }
 
     public void cheatAdvanceTime(int h) { advanceHours(h); }

@@ -31,9 +31,9 @@ public class Main {
 
             // 2. create services
             AuthService authService = new AuthService(userRepo);
-            TimeService timeService = new TimeService();
-            GameService gameService = new GameService(gameRepo, userRepo, timeService);
             WeatherService weatherService = new WeatherService();
+            TimeService timeService = new TimeService(weatherService);
+            GameService gameService = new GameService(gameRepo, userRepo, timeService);
 
             // 3. create controllers
             RegistrationMenuController regCtrl = new RegistrationMenuController(authService);
@@ -41,7 +41,7 @@ public class Main {
             MainMenuController mainCtrl = new MainMenuController(userRepo);
             ProfileMenuController profCtrl = new ProfileMenuController(authService);
             TimeController timeCtrl = new TimeController(timeService);
-            WeatherController weatherCtrl = new WeatherController(weatherService, timeService);
+            WeatherController weatherCtrl = new WeatherController(weatherService);
             GameMenuController gameCtrl = new GameMenuController(gameService, timeCtrl, weatherCtrl);
 
             // 4. create and start menu router
