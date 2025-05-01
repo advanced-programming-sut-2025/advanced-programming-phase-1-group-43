@@ -3,6 +3,17 @@ package Model;
 import java.util.List;
 
 public class Greenhouse {
+    public int FirstX;
+    public int FirstY;
+    public int SecondX;
+    public int SecondY;
+
+    public GreenHouse(int firstX, int secondY, int secondX, int firstY) {
+        FirstX = firstX;
+        SecondY = secondY;
+        SecondX = secondX;
+        FirstY = firstY;
+    }
     private boolean built;
     private List<Tile> cropTiles;
 
