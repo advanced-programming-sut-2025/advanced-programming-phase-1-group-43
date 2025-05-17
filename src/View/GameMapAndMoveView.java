@@ -23,7 +23,7 @@ public class GameMapAndMoveView {
             int x = Integer.parseInt(matcher.group("X"));
             int y = Integer.parseInt(matcher.group("Y"));
             Controller.WalkingController walkingController = new Controller.WalkingController();
-            ArrayList<Object> result = walkingController.CanWalk(User.XLoc,User.YLoc,x,y);
+            ArrayList<Object> result = walkingController.CanWalk(User.X,User.Y,x,y);
             if(!(boolean)result.get(0)){
                 System.out.println("You can't walk because the road is blocked.");
             }else {
