@@ -1,6 +1,6 @@
 package service;
 
-import Model.enums.Season;
+import Model.enums.SeasonEnum;
 import Model.enums.WeatherType;
 
 import java.util.EnumMap;
@@ -13,13 +13,13 @@ public class WeatherService {
     private final Random rnd = new Random();
     private boolean forecastWasCheated = false;
 
-    private static final Map<Season, double[]> PROBS = new EnumMap<>(Season.class);
+    private static final Map<SeasonEnum, double[]> PROBS = new EnumMap<>(SeasonEnum.class);
     static {
         // order: SUNNY, RAIN, STORM, SNOW
-        PROBS.put(Season.SPRING, new double[]{0.5, 0.3, 0.15, 0.05});
-        PROBS.put(Season.SUMMER, new double[]{0.6, 0.25,0.1,  0.05});
-        PROBS.put(Season.FALL,   new double[]{0.5, 0.3, 0.15, 0.05});
-        PROBS.put(Season.WINTER, new double[]{0.7, 0.1, 0.05, 0.15});
+        PROBS.put(SeasonEnum.SPRING, new double[]{0.5, 0.3, 0.15, 0.05});
+        PROBS.put(SeasonEnum.SUMMER, new double[]{0.6, 0.25,0.1,  0.05});
+        PROBS.put(SeasonEnum.FALL,   new double[]{0.5, 0.3, 0.15, 0.05});
+        PROBS.put(SeasonEnum.WINTER, new double[]{0.7, 0.1, 0.05, 0.15});
     }
 
     public WeatherService() {
@@ -42,7 +42,7 @@ public class WeatherService {
             return;
         }
 
-        Season s = Season.valueOf(seasonName);
+        SeasonEnum s = SeasonEnum.valueOf(seasonName);
         double[] ps = PROBS.get(s);
         double r = rnd.nextDouble();
         double cum = 0;

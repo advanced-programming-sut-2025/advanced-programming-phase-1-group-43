@@ -1,5 +1,8 @@
 package Model;
 
+import Model.enums.SeasonEnum;
+
+import java.time.LocalTime;
 import java.util.*;
 
 public class Farm {
@@ -322,5 +325,20 @@ public class Farm {
         AllPlants.remove(pp2);
         AllPlants.remove(pp3);
     }
-    
+
+    public boolean isAdjacentToMachine(String name) {
+        return false;
+    }
+
+    public Inventory getInventory() {
+    }
+
+    public SeasonEnum getSeason() {
+    }
+
+    public boolean isAdjacentToBin() {
+    }
+
+    public LocalTime getCurrentTime() {
+    }
 }

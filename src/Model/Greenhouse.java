@@ -60,4 +60,36 @@ public class Greenhouse {
             t.water();
         }
     }
+
+    public int getFirstX() {
+        return firstX;
+    }
+
+    public void setFirstX(int firstX) {
+        this.firstX = firstX;
+    }
+
+    public int getFirstY() {
+        return firstY;
+    }
+
+    public void setFirstY(int firstY) {
+        this.firstY = firstY;
+    }
+
+    public int getSecondY() {
+        return secondY;
+    }
+
+    public void setSecondY(int secondY) {
+        this.secondY = secondY;
+    }
+
+    public int getSecondX() {
+        return secondX;
+    }
+
+    public void setSecondX(int secondX) {
+        this.secondX = secondX;
+    }
 }

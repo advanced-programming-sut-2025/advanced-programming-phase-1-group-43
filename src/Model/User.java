@@ -2,6 +2,7 @@ package Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -26,6 +27,8 @@ public class User implements Serializable {
     // Game stats:
     private int highestGold;
     private int gamesPlayed;
+
+    int X, Y;
 
 
     public User(String username,
@@ -112,5 +115,30 @@ public class User implements Serializable {
                 ", highestGold=" + highestGold +
                 ", gamesPlayed=" + gamesPlayed +
                 '}';
+    }
+
+    public Collection<String> getInventory() {
+        return java.util.Collections.emptyList();
+    }
+
+    public void placeMachine(String fishSmoker, int i, int i1) {
+    }
+
+    public void setPosition(int x, int y) {
+        X = x;
+        Y = y;
+    }
+
+    public int getGold() {
+        return highestGold;
+    }
+
+    public void spendGold(int price) {
+    }
+
+    public void queueSale(int total) {
+    }
+
+    public void addGold(int amount) {
     }
 }

@@ -1,6 +1,6 @@
 package service;
 
-import Model.enums.Season;
+import Model.enums.SeasonEnum;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public class TimeService {
     }
 
     public String getSeason() {
-        return Season.fromDayOfYear(date.getDayOfYear()).name();
+        return SeasonEnum.fromDayOfYear(date.getDayOfYear()).name();
     }
 
     private void nextDay() {
@@ -30,7 +30,7 @@ public class TimeService {
         time = LocalTime.of(9,0);
 
         // determine new season
-        Season s = Season.fromDayOfYear(date.getDayOfYear());
+        SeasonEnum s = SeasonEnum.fromDayOfYear(date.getDayOfYear());
         // make that forecast the “current” weather
         weather.advanceToNextDay();
         // roll tomorrow’s forecast based on season

@@ -30,7 +30,7 @@ public class Farmm {
             }
             xLocations.add(x);
             yLocations.add(y);
-            trees.add(new Tree(x, y, random.nextBoolean()));
+            trees.add(new Tree("none", x, y, random.nextBoolean()));
         }
 
         for (int i = 0; i < random.nextInt(20) + 20; i++) {

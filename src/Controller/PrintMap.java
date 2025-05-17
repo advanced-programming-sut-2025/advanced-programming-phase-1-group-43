@@ -33,7 +33,7 @@ public class PrintMap {
                     System.out.print("M");
                     Exist = 1;
                 }
-                if(x>=Farm.greenHouse.FirstX && x<=Farm.greenHouse.FirstY && y>=Farm.greenHouse.FirstX && y<=Farm.greenHouse.FirstY) {
+                if(x>=Farm.greenHouse.getFirstX() && x<=Farm.greenHouse.getFirstY() && y>=Farm.greenHouse.getFirstX() && y<=Farm.greenHouse.getFirstY()) {
                     System.out.print("C");
                     Exist = 1;
                 }
