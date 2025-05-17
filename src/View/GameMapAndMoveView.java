@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GameMapAndMoveView {
-    public GameMapAndMoveView(String message) {
+    public static GameMapAndMoveView(String message) {
         boolean walk = Pattern.matches(message, Commmands.Walk.getPattern());
         boolean printMap = Pattern.matches(message, Commmands.PrintMap.getPattern());
 
