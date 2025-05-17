@@ -14,6 +14,10 @@ public class User implements Serializable {
     private String gender;
     private String securityQuestion;
     private String securityAnswerHash;
+    public static int X;
+    public static int Y;
+    public static double Energy;
+    public static int Water;
 
     // Game stats:
     private int highestGold;
