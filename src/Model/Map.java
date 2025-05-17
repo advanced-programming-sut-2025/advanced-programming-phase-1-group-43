@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.List;
+import java.util.Random;
 
 public class Map {
     private Tile tiles;
@@ -9,8 +10,10 @@ public class Map {
     private List<Animal> animals;
     private List<Plant> plants;
 
-    public Tile getTile(int x, int y) {
-
-        return null;
+    public Tile getTile() {
+        Random random = new Random();
+        int x = random.nextInt() % 100;
+        int y = random.nextInt() % 100;
+        return new Tile(x,y);
     }
 }
