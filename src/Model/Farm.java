@@ -1,8 +1,6 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Farm {
     private final List<Tile> cropTiles = new ArrayList<>();
@@ -299,15 +297,15 @@ public class Farm {
 
         //dane ha
         //Baraye Mahsolate Ghol Peykar
-        Plant pp = null;
-        Plant pp2 = null;
-        Plant pp3 = null;
-        for(Plant plant:AllPlants){
-            for(Plant plant1:AllPlants){
+        plant pp = null;
+        plant pp2 = null;
+        plant pp3 = null;
+        for(plant plant:App.AllPlants){
+            for(plant plant1:App.AllPlants){
                 if(plant1.XPlanting == plant.XPlanting && plant1.YPlanting == plant.YPlanting-1 && plant1.plantType == plant.plantType) {
-                    for (Plant plant2 : AllPlants) {
+                    for (plant plant2 : App.AllPlants) {
                         if (plant2.XPlanting == plant.XPlanting-1 && plant2.YPlanting == plant.YPlanting && plant2.plantType == plant.plantType) {
-                            for (Plant plant3 : AllPlants) {
+                            for (plant plant3 : App.AllPlants) {
                                 if (plant3.XPlanting == plant.XPlanting-1 && plant3.YPlanting == plant.YPlanting-1 && plant3.plantType == plant.plantType) {
                                     pp = plant;
                                     pp2 = plant2;
