@@ -1,7 +1,5 @@
 package View;
 
-
-
 import Controller.FertilizeController;
 import Model.User;
 import Model.enums.Commmands;

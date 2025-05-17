@@ -52,7 +52,6 @@ public class ShowPlant {
                     case "Powdermelon": Powdermelon.getInfo(); break;
                     default: System.out.println("Not Plant There"); break;
                 }
-
             }
         }
         if (!isFound){

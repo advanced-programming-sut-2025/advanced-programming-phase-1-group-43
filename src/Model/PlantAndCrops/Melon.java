@@ -19,7 +19,7 @@ public class Melon extends Plant {
     public Melon(String plantType, int XPlanting, int YPlanting) {
         super(plantType, XPlanting, YPlanting);
     }
-    public void getInfo() {
+    public static void getInfo() {
         System.out.println("Name: " + this.plantType);
         System.out.println("Source: " + this.plantType + " Seeds");
         System.out.println("Stages: 1-1-1");

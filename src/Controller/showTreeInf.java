@@ -2,8 +2,6 @@ package Controller;
 
 import Model.Crops.Trees.All;
 
-import static com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.XmlToken.All;
-
 public class showTreeInf {
     public static void printTreeInfo(String treeName) {
         switch (treeName) {
