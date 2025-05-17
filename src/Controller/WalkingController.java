@@ -6,53 +6,67 @@ import Model.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class WalkController {
+public class WalkingController {
+    // baraye emtyazi
+    int NextMove = -1;// 1 --> Right or Left          0 ---> Up or Down
     public ArrayList<Object> CanWalk(int x, int y, int SecondX, int SecondY) {
-        double Energyy = 0.0;
-
-        while (x != SecondX || y != SecondY) {
+        int Energyy = 0;
+        int timeOfTurn = 0;
+        boolean canEalk = true;
+        int TotalEnergy = 0;
+        boolean Ghash = false;
+        while (x != SecondX || y != SecondY || canEalk) {
             int isWalk = 0;
 
             if (x > SecondX) {
                 if (!Farm.xLocations.contains(x - 1) && !Farm.yLocations.contains(y)) {
                     x--;
-                    Energyy += 1.0 / 20.0;
+                    Energyy += 1;
                     isWalk = 1;
+                    if(NextMove == 0){
+                        timeOfTurn ++;
+                    }
+                    NextMove = 1;
                 }
             } else if (x < SecondX) {
                 if (!Farm.xLocations.contains(x + 1) && !Farm.yLocations.contains(y)) {
                     x++;
-                    Energyy += 1.0 / 20.0;
+                    Energyy += 1;
                     isWalk = 1;
+                    if(NextMove == 0){
+                        timeOfTurn ++;
+                    }
+                    NextMove = 1;
                 }
             }
 
             if (y > SecondY) {
                 if (!Farm.yLocations.contains(y - 1) && !Farm.xLocations.contains(x)) {
                     y--;
-                    Energyy += 1.0 / 20.0;
+                    Energyy += 1;
                     isWalk = 1;
+                    if(NextMove == 1){
+                        timeOfTurn ++;
+                    }
+                    NextMove = 0;
                 }
             } else if (y < SecondY) {
                 if (!Farm.yLocations.contains(y + 1) && !Farm.xLocations.contains(x)) {
                     y++;
-                    Energyy += 1.0 / 20.0;
+                    Energyy += 1;
                     isWalk = 1;
+                    if(NextMove == 1){
+                        timeOfTurn ++;
+                    }
+                    NextMove = 0;
                 }
             }
-
-            if (Energyy == 0.0) {
-                System.out.println("GHASH KARD");
-                break;
-            }
-
-            if (isWalk == 0) {
-                System.out.println("Can't walk");
-                return new ArrayList<>(Arrays.asList(false, 0.0));
+            if (isWalk == 0 && x != SecondX && y != SecondY) {
+                canEalk = false;
             }
         }
-
-        return new ArrayList<>(Arrays.asList(true, Energyy));
+        TotalEnergy = (timeOfTurn + (Energyy * 10))/20;
+        return new ArrayList<>(Arrays.asList(canEalk, TotalEnergy));
     }
 
     public boolean MainWalk(int x, int y, int SecondX, int SecondY) {
