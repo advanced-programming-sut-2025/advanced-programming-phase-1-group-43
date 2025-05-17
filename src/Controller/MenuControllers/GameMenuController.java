@@ -4,6 +4,8 @@ package Controller.MenuControllers;
 import Controller.ArtisanController;
 import Controller.TimeController;
 import Controller.WeatherController;
+import View.GameMapAndMoveView;
+import View.GameProgressView;
 import service.GameService;
 
 public class GameMenuController {
@@ -81,9 +83,11 @@ public class GameMenuController {
                 String[] args = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
                 String result = artisanCtrl.handle(args);
                 System.out.println(result);
-            }
-            else {
-                System.out.println("Invalid command in game menu—type 'help' to see valid commands.");
+            }else{
+                GameProgressView gameProgressView = new GameProgressView();
+                GameMapAndMoveView gameMapAndMoveView = new GameMapAndMoveView();
+                gameMapAndMoveView.GameMapAndMoveView(input);
+                gameProgressView.GameProgress(input);
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
