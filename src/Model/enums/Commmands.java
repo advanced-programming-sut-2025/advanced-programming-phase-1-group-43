@@ -18,7 +18,12 @@ public enum Commmands {
     Feed("feed hay -n (?<AnimalName>\\S+)"),
     Produce("produces"),
     SellAnimal("sell animal -n\\s+(?<AnimalName>\\S+)"),
-    Fishing("fishing -p\\s+(?<AnimalName>\\S+)")
+    Fishing("fishing -p\\s+(?<AnimalName>\\S+)"),
+    MeetNpc("meet NPC\\s+(?<Name>\\S+)"),
+    GiftNpc("gift NPC\\s+(?<Name>\\S+) -i (?<Item>\\S+)"),
+    FriendShip("friendship NPC list"),
+    Quest("quests list"),
+    QuestFinish("quests finish")
     ;
     private final String Pattern;
     Commmands (String Pattern) {
