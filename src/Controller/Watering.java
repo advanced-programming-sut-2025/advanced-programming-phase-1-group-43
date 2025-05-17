@@ -14,7 +14,7 @@ public class Watering {
         return "Not Plant found";
     }
     public int HowMuchWater(){
-        return User.WaterVolume;
+        return User.Water;
     }
 }
 
