@@ -2,13 +2,13 @@ package Controller;
 
 import Model.App;
 import Model.Farm;
-import Model.Plant;
+import Model.plant;
 
 public class Harvest {
     public String Harvest(int x,int y){
-        Plant plantForRemove = null;
+        plant plantForRemove = null;
         int IsSuccess = 0;
-        for(Plant plant: App.AllPlantInFarm){
+        for(plant plant: App.AllPlantInFarm){
             if(plant.XPlanting == x && plant.YPlanting == y){
                 if(plant.Age == 1){
                     //TODO
