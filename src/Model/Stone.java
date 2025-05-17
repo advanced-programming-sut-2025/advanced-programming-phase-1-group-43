@@ -1,0 +1,10 @@
+package Model;
+
+public class Stone {
+    public int x;
+    public int y;
+    public Stone(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
