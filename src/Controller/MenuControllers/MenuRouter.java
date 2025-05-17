@@ -1,5 +1,6 @@
 package Controller.MenuControllers;
 
+import Controller.ArtisanController;
 import repository.UserRepository;
 
 import java.util.Scanner;
@@ -13,12 +14,14 @@ public class MenuRouter {
     private final GameMenuController gameCtrl;
     private final Scanner scanner;
     private final UserRepository userRepo;
+    private final ArtisanController artisanCtrl;
 
     public MenuRouter(RegistrationMenuController regCtrl,
                       LoginMenuController loginCtrl,
                       MainMenuController mainCtrl,
                       ProfileMenuController profileCtrl,
                       GameMenuController gameCtrl,
+                      ArtisanController artisanCtrl,
                       Scanner scanner,
                       UserRepository userRepo) {
         this.regCtrl = regCtrl;
@@ -28,6 +31,7 @@ public class MenuRouter {
         this.gameCtrl = gameCtrl;
         this.scanner = scanner;
         this.userRepo = userRepo;
+        this.artisanCtrl = artisanCtrl;
     }
 
     public void loop() {

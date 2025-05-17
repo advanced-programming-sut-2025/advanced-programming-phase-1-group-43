@@ -1,16 +1,14 @@
 package Model;
 
-import Model.enums.PlantType;
-
 import java.util.Random;
 
-public class plant {
+public class Plant {
     public String plantType;
     public int XPlanting;
     public int YPlanting;
     public int dayNotWatering = 0;
     public double Age;
-    public plant(String plantType, int XPlanting, int YPlanting) {
+    public Plant(String plantType, int XPlanting, int YPlanting) {
         this.plantType = plantType;
         this.XPlanting = XPlanting;
         this.YPlanting = YPlanting;

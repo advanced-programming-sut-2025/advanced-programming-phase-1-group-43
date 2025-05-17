@@ -1,14 +1,12 @@
 package Controller;
 
-import Model.App;
 import Model.Farm;
 import Model.PlantAndCrops.*;
-import Model.plant;
 
 public class ShowPlant {
     public void ShowPlant(int x,int y){
         boolean isFound = false;
-        for(plant Plant: Farm.AllPlants){
+        for(Model.Plant Plant: Farm.AllPlants){
             if (Plant.XPlanting == x && Plant.YPlanting == y){
                 isFound = true;
                 switch (Plant.plantType) {

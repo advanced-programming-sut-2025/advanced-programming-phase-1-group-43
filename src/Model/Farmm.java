@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Farm {
+public class Farmm {
     // Fixed Elements
     Cottage cottage = new Cottage(20,20,40,40);
-    GreenHouse greenHouse = new GreenHouse(20,10,40,40);
+    Greenhouse greenHouse = new Greenhouse(20,10,40,40);
     StoneMining stoneMining = new StoneMining(20,20,40,40);
     Lake lake = new Lake(50,30,80,40);
 
@@ -20,7 +20,7 @@ public class Farm {
     public static ArrayList<Integer> yLocations = new ArrayList<>(Arrays.asList(60, 10, 15, 17));
 
 
-    public Farm() {
+    public Farmm() {
         for (int i = 0; i < random.nextInt(20) + 20; i++) {
             int x = random.nextInt(100);
             int y = random.nextInt(100);

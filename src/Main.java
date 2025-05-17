@@ -2,12 +2,14 @@ import Controller.MenuControllers.*;
 import Controller.TimeController;
 import Controller.WeatherController;
 import Model.User;
+import Controller.ArtisanController;
 import repository.GameRepository;
 import repository.UserRepository;
 import service.AuthService;
 import service.GameService;
 import service.TimeService;
 import service.WeatherService;
+import util.SessionManager;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -42,10 +44,20 @@ public class Main {
             ProfileMenuController profCtrl = new ProfileMenuController(authService);
             TimeController timeCtrl = new TimeController(timeService);
             WeatherController weatherCtrl = new WeatherController(weatherService);
-            GameMenuController gameCtrl = new GameMenuController(gameService, timeCtrl, weatherCtrl);
+            ArtisanController artisanCtrl = new ArtisanController(); // added artisan controller
+            GameMenuController gameCtrl = new GameMenuController(gameService, timeCtrl, weatherCtrl, artisanCtrl);
 
             // 4. create and start menu router
-            MenuRouter router = new MenuRouter(regCtrl, loginCtrl, mainCtrl, profCtrl, gameCtrl, scanner, userRepo);
+            MenuRouter router = new MenuRouter(
+                    regCtrl,
+                    loginCtrl,
+                    mainCtrl,
+                    profCtrl,
+                    gameCtrl,
+                    artisanCtrl,
+                    scanner,
+                    userRepo
+            );
             router.loop();
 
         } catch (Exception e) {

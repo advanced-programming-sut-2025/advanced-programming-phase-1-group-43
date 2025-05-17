@@ -54,7 +54,7 @@ public class Farm {
 
      */
     public static Cottage cottage = new Cottage(54,7,59,12);
-    public static GreenHouse greenHouse = new GreenHouse(38,3,45,9);
+    public static Greenhouse greenHouse = new Greenhouse(38,3,45,9);
     public static StoneMining stoneMining = new StoneMining(5,13,11,9);
     public static Lake lake = new Lake(28,31,36,38);
 
@@ -297,15 +297,15 @@ public class Farm {
 
         //dane ha
         //Baraye Mahsolate Ghol Peykar
-        plant pp = null;
-        plant pp2 = null;
-        plant pp3 = null;
-        for(plant plant:App.AllPlants){
-            for(plant plant1:App.AllPlants){
+        Plant pp = null;
+        Plant pp2 = null;
+        Plant pp3 = null;
+        for(Plant plant:App.AllPlants){
+            for(Plant plant1:App.AllPlants){
                 if(plant1.XPlanting == plant.XPlanting && plant1.YPlanting == plant.YPlanting-1 && plant1.plantType == plant.plantType) {
-                    for (plant plant2 : App.AllPlants) {
+                    for (Plant plant2 : App.AllPlants) {
                         if (plant2.XPlanting == plant.XPlanting-1 && plant2.YPlanting == plant.YPlanting && plant2.plantType == plant.plantType) {
-                            for (plant plant3 : App.AllPlants) {
+                            for (Plant plant3 : App.AllPlants) {
                                 if (plant3.XPlanting == plant.XPlanting-1 && plant3.YPlanting == plant.YPlanting-1 && plant3.plantType == plant.plantType) {
                                     pp = plant;
                                     pp2 = plant2;

@@ -1,6 +1,7 @@
 package Controller.MenuControllers;
 
 
+import Controller.ArtisanController;
 import Controller.TimeController;
 import Controller.WeatherController;
 import service.GameService;
@@ -9,11 +10,16 @@ public class GameMenuController {
     private final GameService game;
     private final TimeController timeCtrl;
     private final WeatherController weatherCtrl;
+    private final ArtisanController artisanCtrl;
 
-    public GameMenuController(GameService game, TimeController timeCtrl, WeatherController weatherCtrl) {
+    public GameMenuController(GameService game,
+                              TimeController timeCtrl,
+                              WeatherController weatherCtrl,
+                              ArtisanController artisanCtrl) {
         this.game = game;
         this.timeCtrl = timeCtrl;
         this.weatherCtrl = weatherCtrl;
+        this.artisanCtrl = artisanCtrl;
     }
 
     public void handle(String input) {
@@ -69,6 +75,13 @@ public class GameMenuController {
             else if (input.startsWith("weather") || input.startsWith("cheat weather")) {
                 weatherCtrl.handle(input);
             }
+            else if (input.startsWith("artisan ")) {
+                // artisan use|get commands
+                String[] tokens = input.split("\\s+");
+                String[] args = java.util.Arrays.copyOfRange(tokens, 1, tokens.length);
+                String result = artisanCtrl.handle(args);
+                System.out.println(result);
+            }
             else {
                 System.out.println("Invalid command in game menu—type 'help' to see valid commands.");
             }
@@ -92,6 +105,7 @@ public class GameMenuController {
         System.out.println("  weather / weather forecast      ⇨ show weather");
         System.out.println("  season                          ⇨ show current season");
         System.out.println("  cheat weather set <TYPE>        ⇨ cheat: set weather");
+        System.out.println("  artisan use <machine> <item>    ⇨ enqueue item on artisan machine");
+        System.out.println("  artisan get <machine>           ⇨ retrieve processed item");
     }
-
 }
