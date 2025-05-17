@@ -1,9 +1,12 @@
 package Model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class User implements Serializable {
+    public static int Energy;
+    public static int FishingSkill;
     private Farm farm = new Farm(); // each user has a farm
 
     private static final long serialVersionUID = 1L;
@@ -14,14 +17,16 @@ public class User implements Serializable {
     private String gender;
     private String securityQuestion;
     private String securityAnswerHash;
-    public static int X;
-    public static int Y;
-    public static double Energy;
+    public static int XLoc;
+    public static int YLoc;
     public static int Water;
-
+    public static ArrayList<Object> OwnGhafasiAnimals = new ArrayList<>();
+    public static ArrayList<Object> OwnTavileiiAnimals = new ArrayList<>();
+    public static ArrayList<Object> OwnFishs = new ArrayList<>();
     // Game stats:
     private int highestGold;
     private int gamesPlayed;
+
 
     public User(String username,
                 String nickname,
