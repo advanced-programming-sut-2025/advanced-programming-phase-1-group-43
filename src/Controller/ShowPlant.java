@@ -1,16 +1,17 @@
 package Controller;
 
+import Model.App;
 import Model.Farm;
-import Model.Plant;
 import Model.PlantAndCrops.*;
+import Model.plant;
 
 public class ShowPlant {
     public void ShowPlant(int x,int y){
         boolean isFound = false;
-        for(Plant plant: Farm.AllPlants){
-            if (plant.XPlanting == x && plant.YPlanting == y){
+        for(plant Plant: Farm.AllPlants){
+            if (Plant.XPlanting == x && Plant.YPlanting == y){
                 isFound = true;
-                switch (plant.plantType) {
+                switch (Plant.plantType) {
                     case "Beet": Beet.getInfo(); break;
                     case "Amaranth": Amaranth.getInfo(); break;
                     case "Ancient Fruit": AncientFruit.getInfo(); break;

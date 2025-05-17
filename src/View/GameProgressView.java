@@ -43,13 +43,13 @@ public class GameProgressView {
             String Direction = matcher.group("Direction");
             FertilizeController FertilizeController = new FertilizeController();
             if(Direction.equals("up")){
-                FertilizeController.Fertilize(FertilizeType, User.XLoc -1, User.YLoc);
+                FertilizeController.Fertilize(FertilizeType, User.X -1, User.Y);
             }else if(Direction.equals("down")){
-                FertilizeController.Fertilize(FertilizeType, User.XLoc + 1, User.YLoc);
+                FertilizeController.Fertilize(FertilizeType, User.X+ 1, User.Y);
             }else if(Direction.equals("left")){
-                FertilizeController.Fertilize(FertilizeType, User.XLoc , User.YLoc- 1);
+                FertilizeController.Fertilize(FertilizeType, User.X , User.Y- 1);
             }else if(Direction.equals("right")){
-                FertilizeController.Fertilize(FertilizeType, User.XLoc, User.YLoc+1);
+                FertilizeController.Fertilize(FertilizeType, User.X, User.Y+1);
             }
         }else if(HowMuchWater){
             System.out.println(User.Water);
