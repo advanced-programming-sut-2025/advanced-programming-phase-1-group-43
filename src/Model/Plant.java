@@ -54,7 +54,8 @@ public class Plant {
         return false;
     }
     public void Fertilize(String FertilizeType){
-        //TODO
+        Age += 1;
+        dayNotWatering -=1;
     }
 
 }
